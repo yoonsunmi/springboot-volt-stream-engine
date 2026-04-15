@@ -1,0 +1,49 @@
+server:
+  port: 8080
+  forward-headers-strategy: framework
+
+spring:
+  application:
+    name: voltStream
+
+  sql:
+    init:
+      mode: always
+
+  # H2 Database 설정 (MySQL 모드로 동작)
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MySQL;NON_KEYWORDS=USER
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  # H2 콘솔 활성화 (브라우저에서 DB 테이블 확인용)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        trace: false
+        web-allow-others: true
+
+  # JPA / Hibernate 설정
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update    # 엔티티 클래스 기반으로 테이블 자동 생성
+    show-sql: true        # 실행되는 SQL 쿼리를 콘솔에 출력
+    properties:
+      hibernate:
+        format_sql: true  # SQL을 보기 좋게 정렬
+
+# 로그 설정
+logging:
+  level:
+    root: info
+    org.hibernate.SQL: debug
+    org.hibernate.orm.results: trace # 쿼리 결과 바인딩 값 확인용
+
+# swagger
+springdoc:
+  swagger-ui:
+    path: /docs

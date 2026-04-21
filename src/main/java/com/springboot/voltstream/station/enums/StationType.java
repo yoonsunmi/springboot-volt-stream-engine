@@ -4,16 +4,22 @@ public enum StationType {
     FAST("급속"),
     SLOW("완속");
 
-    private final String value;
+    private final String description;
 
-    StationType(String value) { this.value = value; }
+    StationType(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 
     public static StationType fromValue(String text) {
-        for (StationType b : StationType.values()) {
-            if (String.valueOf(b.value).equals(text) || b.name().equalsIgnoreCase(text)) {
-                return b;
+        for (StationType type : StationType.values()) {
+            if (type.description.equals(text) || type.name().equalsIgnoreCase(text)) {
+                return type;
             }
         }
-        return null;
+        throw new IllegalArgumentException("알 수 없는 StationType: " + text);
     }
 }
